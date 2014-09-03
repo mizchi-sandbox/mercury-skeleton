@@ -1,22 +1,22 @@
 mercury = require "mercury"
 {h} = mercury
 
-clicks = mercury.input()
-clickCount = mercury.value 0
+appState = mercury.value
+  title: 'Hello'
+  items: [0..2]
 
-clicks -> clickCount.set clickCount() + 1
+update = mercury.input()
+update ->
+  state = _.cloneDeep appState()
+  state.items.push state.items.length
+  appState.set state
 
-render = (clickCount) ->
-  h "div.counter", [
-    h "span", "count: "+clickCount
-    h "input", {
-      className: 'btn'
-      type: "button"
-      value: "Click me!"
-      "ev-click": mercury.event clicks
-    }
+render = (state) ->
+  h "div", [
+    h 'h1', state.title
+    h "button", {"ev-click": mercury.event update}, "update"
+    h 'ul', {}, state.items.map (item) -> h 'li', {}, item.toString()
   ]
 
 window.addEventListener "DOMContentLoaded", ->
-  console.log 'initialized'
-  mercury.app(document.body, clickCount, render)
+  mercury.app document.body, appState, render

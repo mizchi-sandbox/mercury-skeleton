@@ -1,32 +1,36 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var clickCount, clicks, h, mercury, render;
+var appState, h, mercury, render, update;
 
 mercury = require("mercury");
 
 h = mercury.h;
 
-clicks = mercury.input();
-
-clickCount = mercury.value(0);
-
-clicks(function() {
-  return clickCount.set(clickCount() + 1);
+appState = mercury.value({
+  title: 'Hello',
+  items: [0, 1, 2]
 });
 
-render = function(clickCount) {
-  return h("div.counter", [
-    h("span", "count: " + clickCount), h("input", {
-      className: 'btn',
-      type: "button",
-      value: "Click me!",
-      "ev-click": mercury.event(clicks)
-    })
+update = mercury.input();
+
+update(function() {
+  var state;
+  state = _.cloneDeep(appState());
+  state.items.push(state.items.length);
+  return appState.set(state);
+});
+
+render = function(state) {
+  return h("div", [
+    h('h1', state.title), h("button", {
+      "ev-click": mercury.event(update)
+    }, "update"), h('ul', {}, state.items.map(function(item) {
+      return h('li', {}, item.toString());
+    }))
   ]);
 };
 
 window.addEventListener("DOMContentLoaded", function() {
-  console.log('initialized');
-  return mercury.app(document.body, clickCount, render);
+  return mercury.app(document.body, appState, render);
 });
 
 

@@ -18,10 +18,11 @@ gulp.task 'reload', ->
 
 gulp.task 'js', ->
   browserify
-    entries: ['./app/initialize.coffee']
-    extensions: ['.coffee','.jade', '.js']
+    entries: ['./app/app.wisp']
+    extensions: ['.coffee','.jade', '.js', 'wisp']
   .transform 'coffeeify'
   .transform 'jadeify'
+  .transform 'wispify'
   .bundle()
   .pipe plumber()
   .pipe source 'app.js'
@@ -44,6 +45,7 @@ gulp.task 'css', ->
 gulp.task 'watch', ['build', 'server'], ->
   gulp.watch 'app/**/*.coffee', ['js', 'reload']
   gulp.watch 'app/**/*.jade', ['js', 'reload']
+  gulp.watch 'app/**/*.wisp', ['js', 'reload']
   gulp.watch 'app/styles/**/*.scss', ['css', 'reload']
   gulp.watch 'bower_components/**/*.js', ['vendor', 'reload']
 

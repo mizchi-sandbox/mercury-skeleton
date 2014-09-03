@@ -1,38 +1,43 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var appState, h, mercury, render, update;
-
-mercury = require("mercury");
-
-h = mercury.h;
-
-appState = mercury.value({
-  title: 'Hello',
-  items: [0, 1, 2]
+{
+    var _ns_ = {
+        id: 'app',
+        doc: void 0
+    };
+    var mercury = require('mercury');
+    var m = mercury;
+}
+var h = exports.h = m.h;
+var appState = exports.appState = m.value({
+    'title': 'Hello mercury',
+    'items': [
+        0,
+        1,
+        2
+    ]
 });
-
-update = mercury.input();
-
-update(function() {
-  var state;
-  state = _.cloneDeep(appState());
-  state.items.push(state.items.length);
-  return appState.set(state);
+var update = exports.update = mercury.input();
+update(function () {
+    return function () {
+        var stateø1 = _.cloneDeep(appState());
+        var itemCountø1 = stateø1.items.length;
+        stateø1.items.push(itemCountø1);
+        return appState.set(stateø1);
+    }.call(this);
 });
-
-render = function(state) {
-  return h("div", [
-    h('h1', state.title), h("button", {
-      "ev-click": mercury.event(update)
-    }, "update"), h('ul', {}, state.items.map(function(item) {
-      return h('li', {}, item.toString());
-    }))
-  ]);
+var render = exports.render = function render(state) {
+    return h('div', [
+        h('h1', state.title),
+        h('button', { 'ev-click': m.event(update) }, 'Add'),
+        h('ul', state.items.map(function (item) {
+            return h('li', item.toString());
+        }))
+    ]);
 };
-
-window.addEventListener("DOMContentLoaded", function() {
-  return mercury.app(document.body, appState, render);
+window.addEventListener('DOMContentLoaded', function () {
+    return m.app(document.body, appState, render);
 });
-
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImRhdGE6YXBwbGljYXRpb24vd2lzcDtjaGFyc2V0PXV0Zi04O2Jhc2U2NCxLRzV6SUdGd2NBb2dJQ2c2Y21WeGRXbHlaU0JiYldWeVkzVnllU0E2WVhNZ2JWMHBLUW9vWkdWbUlHZ2diUzVvS1FvS0tHUmxaaUJoY0hBdGMzUmhkR1VnS0cwdWRtRnNkV1VLSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJSHM2ZEdsMGJHVWdJa2hsYkd4dklHMWxjbU4xY25raUNna0pDUWtKQ1FrSklEcHBkR1Z0Y3lCYk1DQXhJREpkZlNrcENnb29aR1ZtSUhWd1pHRjBaU0FvYldWeVkzVnllUzVwYm5CMWRDa3BDaWgxY0dSaGRHVWdLR1p1SUZ0ZENna0pDUWtnSUNoc1pYUWdXM04wWVhSbElDaGZMbU5zYjI1bFJHVmxjQ0FvWVhCd0xYTjBZWFJsS1NrS0lDQWdJQWtKQ1NBZ0lDQWdJR2wwWlcwdFkyOTFiblFnYzNSaGRHVXVhWFJsYlhNdWJHVnVaM1JvWFFvSkNRa0pJQWtKQ1NBb2MzUmhkR1V1YVhSbGJYTXVjSFZ6YUNCcGRHVnRMV052ZFc1MEtRb0pDUWtKQ1FrSklDaGhjSEJUZEdGMFpTNXpaWFFnYzNSaGRHVXBLU2twQ2dvb1pHVm1iaUJ5Wlc1a1pYSWdXM04wWVhSbFhRb2dDU2hvSUNKa2FYWWlJRnNLQ1NBSktHZ2dPbWd4SUhOMFlYUmxMblJwZEd4bEtRb2dJQ0FnS0dnZ09tSjFkSFJ2YmlCN09tVjJMV05zYVdOcklDaHRMbVYyWlc1MElIVndaR0YwWlNsOUlDSkJaR1FpS1FvSklBa29hQ0E2ZFd3Z0tITjBZWFJsTG1sMFpXMXpMbTFoY0NBb1ptNGdXMmwwWlcxZElDaG9JRHBzYVNBb2FYUmxiUzUwYjFOMGNtbHVaeWtwS1NrcENpQWdYU2twQ2dvb2QybHVaRzkzTG1Ga1pFVjJaVzUwVEdsemRHVnVaWElnSWtSUFRVTnZiblJsYm5STWIyRmtaV1FpTENBb1ptNGdXMTBLSUNBb2JTNWhjSEFnWkc5amRXMWxiblF1WW05a2VTQmhjSEJUZEdGMFpTQnlaVzVrWlhJcEtTa0siXSwibmFtZXMiOlsiaCIsIm0iLCJhcHBTdGF0ZSIsInZhbHVlIiwidXBkYXRlIiwibWVyY3VyeSIsImlucHV0Iiwic3RhdGX4MSIsIl8iLCJjbG9uZURlZXAiLCJpdGVtQ291bnT4MSIsIml0ZW1zLmxlbmd0aCIsIml0ZW1zLnB1c2giLCJzZXQiLCJyZW5kZXIiLCJzdGF0ZSIsInRpdGxlIiwiZXZlbnQiLCJpdGVtcy5tYXAiLCJpdGVtIiwidG9TdHJpbmciLCJ3aW5kb3ciLCJhZGRFdmVudExpc3RlbmVyIiwiYXBwIiwiZG9jdW1lbnQiLCJib2R5Il0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBLEk7OztNQUFBO0FBQUEsSSxpQ0FBQTtBQUFBLEksZ0JBQUE7QUFBQSxDO0FBRUEsSUFBS0EsQ0FBQSxHLFFBQUFBLEMsR0FBRUMsQ0FBQSxDQUFFRCxDQUFULEM7QUFFQSxJQUFLRSxRQUFBLEcsUUFBQUEsUSxHQUFXRCxDQUFBLENBQUVFLEtBQUgsQ0FDQztBQUFBLEksd0JBQUE7QUFBQSxJLFNBQ0E7QUFBQSxRLENBQUE7QUFBQSxRLENBQUE7QUFBQSxRLENBQUE7QUFBQSxLQURBO0FBQUEsQ0FERCxDQUFmLEM7QUFJQSxJQUFLQyxNQUFBLEcsUUFBQUEsTSxHQUFRQyxPQUFBLENBQVFDLEtBQVQsRUFBWixDO0FBQ0NGLE1BQUQsQ0FBUSxZO0lBQ0YsTztRQUFNLElBQUFHLE8sR0FBT0MsQ0FBQSxDQUFFQyxTQUFILENBQWNQLFFBQUQsRUFBYixDQUFOLEM7UUFDQyxJQUFBUSxXLEdBQVdILE9BQUEsQ0FBTUksWUFBakIsQztRQUNISixPQUFBLENBQU1LLFVBQVAsQ0FBa0JGLFdBQWxCLEM7UUFDRCxPQUFDUixRQUFBLENBQVNXLEdBQVYsQ0FBY04sT0FBZCxFO1VBSEYsQyxJQUFBLEU7Q0FETixDO0FBTUEsSUFBTU8sTUFBQSxHLFFBQUFBLE0sR0FBTixTQUFNQSxNQUFOLENBQWNDLEtBQWQsRTtJQUNFLE9BQUNmLENBQUQsQyxLQUFBLEVBQVM7QUFBQSxRQUNQQSxDQUFELEMsSUFBQSxFQUFPZSxLQUFBLENBQU1DLEtBQWIsQ0FEUTtBQUFBLFFBRU5oQixDQUFELEMsUUFBQSxFQUFXLEUsWUFBWUMsQ0FBQSxDQUFFZ0IsS0FBSCxDQUFTYixNQUFULENBQVgsRUFBWCxFLEtBQUEsQ0FGTztBQUFBLFFBR1BKLENBQUQsQyxJQUFBLEVBQVFlLEtBQUEsQ0FBTUcsU0FBUCxDQUFpQixVQUFLQyxJQUFMLEU7WUFBVyxPQUFDbkIsQ0FBRCxDLElBQUEsRUFBUW1CLElBQUEsQ0FBS0MsUUFBTixFQUFQLEU7U0FBNUIsQ0FBUCxDQUhRO0FBQUEsS0FBVCxFO0NBREYsQztBQU9DQyxNQUFBLENBQU9DLGdCQUFSLEMsa0JBQUEsRUFBNkMsWTtJQUMzQyxPQUFDckIsQ0FBQSxDQUFFc0IsR0FBSCxDQUFPQyxRQUFBLENBQVNDLElBQWhCLEVBQXFCdkIsUUFBckIsRUFBOEJZLE1BQTlCLEU7Q0FERixDIn0=
 
 },{"mercury":4}],2:[function(require,module,exports){
 
